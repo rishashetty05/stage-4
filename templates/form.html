@@ -1,23 +1,27 @@
 {% extends 'base.html' %}
-{% include 'content.html'%}
-<!--- include includes the -->
+{%include 'content.html'%} <!--implement each block in a step by step manner -->
 
 {%block sidebar%}
-     <div class = "nav"> 
+    <div class = "nav"> 
          <ul>
             <li>Introduction to networks</a>
             </li>
-            <li>Servers</a>
+            <li>How to make Internet work?</a>
+            </li>
+            <li>Forms &amp; Validation</a>
             </li>
             <li>Templates</a>
             </li>
-            <li>Databases</a>
+            <li>Databases & SQL</a>
             </li>
         </ul>
+    </div>
 {%endblock%}
 
 {% block form%} 
-    <div>
+    <div> 
+    <h3 style = "color: blue">Please login to comment on my notes</h3>
+
     <form method = "post">
 
             <fieldset>
@@ -32,21 +36,15 @@
                 <div style = "color:red">{{nameerror}}</div>
                 <!--nameerror variable will be filled by template_value dictionary to appear as a red texted color on html input page-->
         </p> 
-            <label> SURNAME : </label>
-            <input type = "text" name = "surname" required = "required" value = "{{surname}}" maxlength = 10>
-            <!--name variable will be filled by template_value dictionary to retain values derived from user on html input page-->
-            <!--<div style = "color:red">{{surnameerror}}</div>-->
-            <!--nameerror variable will be filled by template_value dictionary to appear as a red texted color on html input page-->
-        </p> 
         <p>
-            <label> Email Address: </label>  
-            <input type="text" name= "email" required placeholder="Enter a valid email address" value = "{{email}}">
+            <label> Email ID: </label>  
+            <input type="email" name= "email" required placeholder="Enter a valid email address" value = "{{email}}">
             <div style = "color:red">{{emailerror}}</div>
         </p>
         <p>
             <label> Location: </label>  
             <input type="text" name= "location" required placeholder="Enter a valid country" value = "{{email}}">
-            <!--<div style = "color:red">{{locationerror}}</div>-->
+            <div style = "color:red">{{locationerror}}</div>
         </p>
         <p>
             <label>Select topic : </label>
@@ -57,7 +55,7 @@
             {% endfor %}
             </select>
         </p>
-        <input type = "submit">
+        <input type = "submit" name = "Login">
     </form>
     </div>
 {%endblock%}
