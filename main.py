@@ -19,17 +19,18 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                 extensions=['jinja2.ext.autoescape'],
                                 autoescape=True)
 
-class Greeting(db.Model):
-    """Models an individual Guestbook entry with an author, content, and date."""
+class Commentinfo(db.Model):
+    #change Greeting to Commentinfo
+    """Models an individual  entry with an author, content, and date."""
     author = db.StringProperty()
     topic_selected = db.StringProperty()
-
     content = db.StringProperty(multiline=True, indexed=False)
     date = db.DateTimeProperty(auto_now_add=True)
 
-def _GuestbookKey(guestbook_name=None):
+def _CommentKey(comments_holder=None):
+    #chnge _GuestbookKey to _CommentKey & guestbook_name to comments_holder
   """Constructs a Datastore key for a Guestbook entity with guestbook_name."""
-  return db.Key.from_path('Guestbook', guestbook_name or 'default_guestbook')
+  return db.Key.from_path('Commentblock', comments_holder or 'default_holder')
 
 def escape_html(s):
     return cgi.escape(s, quote = True)
@@ -43,16 +44,6 @@ def valid_name(name):
             return "valid"
     else:
 
-        return "invalid"
-
-def valid_id(email):
-    if  len(email)<35:
-        p = r"[@.]"
-        if re.search(p, email):
-            return "valid"
-        else:
-            return "invalid"
-    else:
         return "invalid"
 
 class Handler(webapp2.RequestHandler):
@@ -89,11 +80,11 @@ class MainPage(Handler):
 
     def post(self):
         user_name = self.request.get('name')
-        user_id =self.request.get('email')
+        email = self.request.get('email')
+        topic = self.request.get('topic')
 
         name = valid_name(user_name)
-        email= valid_id(user_id)
-
+        
         if (name and email == "invalid"):
             self.write_form("Invalid name","Invalid email",user_name,user_id)
         elif (name == "invalid") :
@@ -101,30 +92,29 @@ class MainPage(Handler):
         elif (email == "invalid"):
             self.write_form("","Invalid email",user_name,user_id)
         else: 
-            self.redirect("/thanks?name="+name+"&email="+email)       
+            self.redirect("/thanks?name="+name+"&email="+email+"&topic="+topic)       
 
 class ThanksHandler(Handler):
     def get(self):
-        guestbook_name = self.request.get('name')
+        comments_holder = self.request.get('name')
+        comments_query = Commentinfo.all().ancestor(_CommentKey(comments_holder)).order('-date')
+        comments = comments_query.fetch(10)
 
-        greetings_query = Greeting.all().ancestor(_GuestbookKey(guestbook_name)).order('-date')
-        greetings = greetings_query.fetch(10)
-
-        template_values = {'greetings': greetings,}
-        self.render('content.html', **(template_values))           
+        template_values = {'comments': comments}
+        self.render('comment.html', **(template_values))           
     
     def post(self):
-        guestbook_name = self.request.get('name')
-        greeting = Greeting(parent=_GuestbookKey(guestbook_name))
+        comments_holder = self.request.get('name')
+        comment = Commentinfo(parent=_CommentKey(comments_holder))
         
         if users.get_current_user():
-            greeting.author = users.get_current_user().email()
+            comment.author = users.get_current_user().email()
         
-        greeting.topic_selected = self.request.get('topic')
-        greeting.content = self.request.get('content')
-        greeting.put()
+        comment.topic_selected = self.request.get('topic')
+        comment.content = self.request.get('content')
+        comment.put()
 
-        self.redirect('/thanks?'+ urllib.urlencode({'guestbook_name': guestbook_name}))
+        self.redirect('/thanks?'+ urllib.urlencode({'comments_holder': comments_holder}))
 
 #trial is what you have launched on Google app engine an it works so far
 app = webapp2.WSGIApplication([('/', MainPage),("/thanks", ThanksHandler),
