@@ -1,21 +1,43 @@
 {% extends 'base.html' %}
 {% include 'content.html' %}
-    
-{% block head %}
-    
+  
+{%block sidebar%}
+    <div class = "nav"> 
+         <ul>
+            <li>Introduction to networks</a>
+            </li>
+            <li>How to make Internet work?</a>
+            </li>
+            <li>Forms &amp; Validation</a>
+            </li>
+            <li>Templates</a>
+            </li>
+            <li>Databases &amp; SQL</a>
+            </li>
+        </ul>
+    </div>
 {%endblock%}
 
+
 {%block form%}
-    {% for greeting in greetings %}
-        <b>{{ greeting.author.email }}</b> wrote: on {{greeting.topic_selected}}
-        <blockquote>{{ greeting.content|escape }}</blockquote>
-    {% endfor %}
     <form action = "/thanks" method = "post">
-        <h3 style = "color: blue">Thank you for your details</h3>
+        <h3 style = "color: blue">Thank you for your details!</h3>
         <div><label>Enter your comments:<br>
-            <textarea name="content" cols="20"rows="10" maxlength = "200">Enter your content here..
+            <textarea name="content" cols="30"rows="5" maxlength = "200">sEnter your content here..
             </textarea>
         </label></div>
         <div><button>submit</button></div>
     </form>
+    <a href="{{ url }}">{{ url_linktext }}</a>
+    <div>
+    <h3 style = "color: blue"> Feedback: </h3>
+        {% for comment in comments %}
+            {% if comment.author %} 
+                <b>{{ comment.author}}</b> wrote: about {{comment.topic_selected}}
+            {%endif%}
+            <blockquote>{{ comment.content|escape }}</blockquote>
+        {% endfor %}
+    </div>
+
+</div>
 {%endblock%}
