@@ -1,94 +1,140 @@
-{% include 'base.html' %}
-
-{% block head %}
-    {% block title %}Content template {% endblock %}
-    <link rel="stylesheet" href="/style/newstyle.css"/>
-{%endblock%}
+{%extends 'base.html'%}
 
 
 {%block content%}
-    <div class="group">
             <h1 id="lesson5"> <em>  Lesson 5 - Web Development</em> </h1>
             <div class="concept">
-                <h3 class="concept-title" id="lesson5.1">Introduction To Netwroks</h3>
+                <h3 class="concept-title" id="lesson5.1">Introduction To Networks</h3>
 
                 <div class="concept-description">
+                    <h4>Web of Networks</h4>
                     <p>
-                       In Information technology, a <em>netwok</em> is a series of points or nodes interconnected by communication paths. Network can interconnect with other networks and also contain subnetwork.
-                       Though not directly connected, communication and exchange of information is sill possible in a network. This is a general definition, as there is a lot of versatality to networks. Internet too is a type of Network, Computer Network specifically. The Internet is more of a concept than an actual tangible entity, and it relies on a physical infrastructure that connects networks to other networks.
+                      In Information technology, a <em>netwok</em> is generally defined as a series of points or nodes interconnected by communication paths. These can than be extended to other networks and may also contain subnetworks, thus aiding to communication and exchange of information without actual, device to device connection (no direct channel). However, there is a lot of
+                        versatality to networks than just a series of nodes and routers. 
+                       Internet is one such 'type' of Network, widely known as 'Computer Network' specifically though, Internet is more of a concept than an actual tangible entity, and it relies on a physical infrastructure that connects one network to other networks.
                     </p>
                     <br>
-                       We can always measure a network based on two ways : 1. Latency 2. Bandwidth.<br>
-                       The concept of <a href = "https://www.udacity.com/course/viewer#!/c-nd000/l-4212668559/e-48737168/m-48729193">Latency</a> and <a href = "https://www.udacity.com/course/viewer#!/c-nd000/l-4212668559/m-48739102"> Bandwidth</a>.
-                    <p>
-                        Computer networks or data network differ in the <em>transmission media</em> used to carry their signals, the <em>communications protocols</em> to organize network traffic, the network's size i.e. the number of bytes in a data-segment(<a href="http://searchnetworking.techtarget.com/definition/maximum-segment-size">MTU</a>), <em>topology</em> and organizational intent. In most cases, communications protocols are layered on (i.e. work using) other more specific or more general communications protocols, except for the physical layer that directly deals with the transmission media. Refer this<a href = "http://www.webopedia.com/quick_ref/OSI_Layers.asp"> link</a>
-                        Mostly <a href = https://www.udacity.com/course/viewer#!/c-nd000/l-4212668559/m-48739103> this </a> a general idea of what is required to run a network.
-                    </p>
+                    <h4>Latency & Bandwidth </h4>
+                       We can reliably measure network in two ways : 1. Latency 2. Bandwidth.<br>
+                       <em>Latency</em> is the time that it takes for a message to reach from its source to the destination where it was requested. <em>Bandwidth</em> defined as the amount of informaation that can be transdered per unit time. Its unit is <em>mbps</em> - MEGA Bits Per Second. <a href = "http://www.plugthingsin.com/internet/speed/latency/">Refer this</a>. Both concepts seem inversely relational, just like time and frequency. Messages are transferred bitwise. A series of 1's and 0's bundled together which when broken depicts a character. This is also called encoding.
+                    <h4>Network Organization and transmission</h4>
+                        Computer networks or Internet network differs in the <em>transmission media </em> used to carry their signals or messages, the <em>communications protocols</em> used to organize network traffic, the network's size i.e. the number of bytes in a data-segment(<a href="http://searchnetworking.techtarget.com/definition/maximum-segment-size"> MTU </a>), <em>network topology</em> and organizational intent. In most cases, communications protocols are layered on (i.e. work using) other more specific or more general communications protocols, except for the physical layer that directly deals with the transmission media(wired or wireless). Refer this<a href = "http://www.webopedia.com/quick_ref/OSI_Layers.asp"> link</a>.
+                        To reliably operate a network:
+                        1. encode &amp; interpret and reverse for two-way communication
+                        2. Route messages 
+                        3. Rules and priority for message packets 
+
+                     <h4> CLient-Server Protocol</h4>
+                        As listed in last sesssion, of all the Communication Protocols, HTTP is the most widely used in WEB NETWORKS.
+                        HTTP Stands For HYper Text Transfer Protocol. This specifes the specific rules to be followed by the client(user) and server(hosting computer). The two main header messages used often, which is "GET" &amp; "POST". <br>
+                        The GET message requests for specific data from the user, once the server recives ths message it retrieves requested file and provides the necessary file back.
                 </div>
             </div>
             <br>
             <div class="concept">
-                <h3 class="concept-title" id="lesson5.2">Servers</h3>
+                <h3 class="concept-title" id="lesson5.2">How to make Internet work?</h3>
                 <div class="concept-description">
                         <div class="sample">
                         <img src="webserver-basic-sm.gif" alt="Basic Server Request-Response">
-                        </div>
-                    <p>
-                        At the most basic level, when we type in an addrss,(<strong>Uniform Resource Locator</strong>) say "http://www.example.com/foo?p=1/sample.gif", and we see a page on our Computer screen.
-                        Behind the scenes, the browser actually breaks the URL into : 
+                        <h4> Web Server </h4>
+                        How a web server works and why are they important?
+                        At the most basic level, when we type in an address i.e. (<strong>Uniform Resource Locator</strong>) say "http://www.example.com/foo?p=1/sample.gif", and we see a page on our Computer screen.
+                        <a href = "http://computer.howstuffworks.com/web-server2.htm">Behind the scenes </a>., the browser actually breaks the URL into : 
                         <ol>
-                        <li> PROTOCOL - HYper Text Transfer Protocol - <em>HTTP</em></li>
+                        <li> PROTOCOL - Hyper Text Transfer Protocol - <a href = "http://www.webopedia.com/TERM/H/HTTP.html">HTTP</a> </li>
                         <li> Server Name - Domain Name (Host)</li>
                         <li> File Name (Path along with file name)</li>
                         </ol>
-                        The Server name (www.example.com)translates to an IP ADDRESS which our browser connects with, and directs through path (foo?p=1/) to get the file name (sample.gif). HTTP is the protocol or language used to make a request in the form of a <em>Query Parameter</em> which mostly a <strong>GET</strong> Request asking for the given file name. The Server machine makes its service available through numbered path,  usually visible at the end pf the URL called port, eg. http://www.xxxx.yyyy.com:918. When no port number is specifiec we assume its the defult port: 80. AT times, ther are extra <strong>FRAGMENTS </strong>usually seperated by teh "#" sign.Fragments are used to particularly refernce a Page we are looking at. In the URL, it comes after query parameter.
-                    </p>
-                        <a href="https://www.udacity.com/course/viewer#!/c-nd000/l-4169998949/m-48439389">Here</a>is an explanation on how requests are sent by HTTP. The <a href="https://www.udacity.com/course/viewer#!/c-nd000/l-4169998949/m-48724355"> HTTP response </a> is followed by <a href="https://www.udacity.com/course/viewer#!/c-nd000/l-4169998949/m-3913658626">response headers</a>.
-                        There are two main classifications of the types of responses a server gives : 1. Static 2.Dynamic. <a href="https://www.udacity.com/course/viewer#!/c-nd000/l-4169998949/m-48748026">Here</a> is the basic difference. CLick <a href="http://computer.howstuffworks.com/web-server12.htm">here</a> for more specific details.
+                        The Server name (www.example.com) translates to an IP ADDRESS which our browser connects with, and directs through path (foo?p=1/) to get the file name (sample.gif). HTTP is the protocol or language used to make a request in the form of a <em>Query Parameter</em> which mostly a <strong>GET</strong> Request asking for the given file name. The Server machine makes its service available through numbered path,  usually visible at the end pf the URL called port, eg. http://www.xxxx.yyyy.com:918. When no port number is specifiec we assume its the defult port: 80. AT times, ther are extra <strong>FRAGMENTS </strong>usually seperated by teh "#" sign eg. <em>http://example.com:80/toys?p=foo#blah</em>. Fragments are used to particularly refernce a Page we are looking at. In the URL, it comes after query parameter.
+                        Here</a>is an explanation on how requests are sent by HTTP. The HTTP response  is followed by response headers.
+                        There are two main classifications of the types of responses a server gives : 1. Static 2.Dynamic. <a href = "http://techwelkin.com/difference-between-static-and-dynamic-web-pages">Here</a> is the basic difference. Mostly all websites now a days are dynamic which are made using WEB APPLICATIONS.
+
+                        <h4> GET v/s POST </h4>
+                        <a href = "http://www.tutorialspoint.com/http/http_header_fields.htm">HTTP header </a> fields provide information anout the request or  of object sent in the message body.
+                        GET Headers and Post Headers are most common methods used to reteive datas from the server:<br>
+                        <ol> 
+                            <li>GET - Requests data from a specified resource </li>
+                            <li>POST - Submits data to be processed to a specified resource </li> 
+                        </ol>
+                        CLick <a href = "http://www.w3schools.com/tags/ref_httpmethods.asp"> here </a>to understand the difference between the two.
                     </p>
                 </div>
             </div>
             <br>
             <div class="concept">
-                <h3 class="concept-title" id="lesson5.4">Validation</h3>
-
-                <div class="concept-description">
-                    <p>
-                        Dynamic HTML Pages as we had seen in our earlier lesson has to record data at server end, received from  the client. <a href = "https://www.udacity.com/course/viewer#!/c-nd000/l-4175328805/m-48624667">Validating </a>this data i.e. verifying whether we received what we wanted to, has to be done at the server side. For eg. Forms are usually a part of all online  websites these days, where the server records all users accessing their page. Bad data in this case cannot be accepted and the page has to be handled in such a manner that server generates a response asking user to re-enter valid inputs. Bad data can be several mbytes of juck or bad html scrpting which could hamper our server data and page format.<br>
-                        <a href="https://www.udacity.com/course/viewer#!/c-nd000/l-4175328805/m-48714317">Handling Posts</a> with GET &amp; POST Function is important here. GET and Post data is followed by Content-Length header indicates the size of the body, and the Content-Type header indicates the type of resource sent to the server. <a href= "https://www.udacity.com/course/viewer#!/c-nd000/l-4175328805/m-48724380">Validation</a> is the next step. <a ref="https://www.udacity.com/course/viewer#!/c-nd000/l-4175328805/m-48714318">Response </a>is to be generated based on this feedback.
-                    <p>
-                    <h4>String Sustitution & Advanced String Substitution</h4>
-                    <p>
-                        String Substitution isused to sustitute a variable form data which has to be reused and generated every time while coding. For eg.
+                <h3 class="concept-title" id="lesson5.3">Forms & Validation</h3>
+                <h4> Forms </h4>
+                    Dynamic HTML Pages as we had seen in our earlier lesson has to record data at server end, received from  the client.
+                    Forms is once such example where used to collect user data,information is stored and retieved as required from the servers.. <a href = "http://www.w3schools.com/tags/tag_form.asp">Form tags </a> are used to create HTML forms.
+                <h4> Validation </h4>
+                    Validating </a>this data i.e. verifying whether we received what we wanted to, has to be done at the server side. For eg. Forms are usually a part of all online  websites these days, where the server records all users accessing their page. Bad data in this case cannot be accepted and the page has to be handled in such a manner that server generates a response asking user to re-enter valid inputs. Bad data can be several mbytes of juck or bad html scrpting which could hamper our server data and page format.<br>
+                    Handling Posts</a> with GET &amp; POST Function is important here. GET and Post data is followed by Content-Length header indicates the size of the body, and the Content-Type header indicates the type of resource sent to the server. <a href = "https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/Data_form_validation">Validation</a> is the next step and Response </a>is to be generated based on this feedback.
+                <h4>String Sustitution & Advanced String Substitution</h4>
+                    String Substitution is used to sustitute a variable form data which has to be reused and generated every time while coding. This is specifically used for Validating the variable data and resuing the same else where if required, before storing it onto server database. This is in interesting concept to be used.
+                    For eg.
                         <pre>
                         "<b>some bold text</b>"
                         </pre>
-                        If we had to use the above string everywhere everytime, it would be difficult task. Instead we can use string substitution to reuse the 
+                    If we had to use the above string everywhere everytime, it would be difficult task. Instead we can use string substitution to reuse the 
                         <pre>
                         "<b>%s</b>" % VARIABLE 
                         </pre>
-                        Now we can sustitute the variable to which ever value we need. Similary if its multiple variable sustitution can be done as below
+                    Now we can sustitute the variable to which ever value we need. Similary if its multiple variable sustitution can be done as below
                         <pre>
                         "some text %s then some text %s" %(variable1, variable2)
                         </pre>
-                        A <a href = "https://www.udacity.com/course/viewer#!/c-nd000/l-4175328805/m-48746044"> sample</a> on using string substitution. In this example, we are trying to use write_form which takes two parameters, self and error. But notice that it says error="". This is an example of an <b>optional parameter</b>. It means that you can specify a value for the error parameter when you call the function but you don't have to. If you don't specify a value, it will take a default value (in this case, the empty string "").
-                    </p>
-                    <p>
-                        What happens if you want to include the same variable twice in the same string? We can do this by including a name identifier in parentheses:
+                </p>
+                <p>
+                    What happens if you want to include the same variable twice in the same string? We can do this by including a name identifier in parentheses:
                         <pre>
                         "text %(NAME)s text" % {"NAME": value}
                         </pre>
-                        Now, instead of just having the variables at the end of the string, we can include a dictionary that maps NAME to a value. NAME can appear in the string multiple times, and we can have multiple names.
-                        <a href = "https://www.udacity.com/course/viewer#!/c-nd000/l-4175328805/m-48746044">Here is an example.</a>
+                        Now, instead of just having the variables at the end of the string, we can include a dictionary that maps NAME to a value. NAME can appear in the string multiple times, and we can have variable names which changes accordingly everywhere.
+                        In our prjetcs we have wpplied teh above string substitution on multiple string which is an HTML form
+                We can summerize this as below:
+                    1. Validate user data (use string substitution) &amp; escape if requeired
+                    2. Provide valid error mssage blocks
+                    3. Use redirection on successful  receipt on valid data.
+            <br>
+            <div class="concept">
+                <h3 class="concept-title" id="lesson5.4">Templates</h3>
+                <div class="concept-description">
+                    <p>
+                        The problems with HTML string substitution is the whole complication that arises in coding which is difficult to change when need be. There is no syntax highligting, for eg. we start using "HTML" strings in python codes, two different languages not being used to its proper effect.
+                        The better way to implement such applications is using "Templates" technology. A Template librabry is used to build complicated strings, usch as HTML, XML etc.
+                        One such librabry is <a href = "http://jinja.pocoo.org/docs/dev/templates/">Jinja </a>., which is built into Jinja2.
+                        Jinja has a feature called "Template inheritance" which can help avoid reuing of code be giving a base layout which is rendered using child template along with parameters which can be vairable dictionaries, lists etc.  
+                        Advantages"
+                        1.  Seperate code from HTML
+                        2.  Make more readable code
+                        3.  HTML which is more easier to identify   
                     </p>
                 </div>
             </div>
             <br>
             <div class="concept">
-                <h3 class="concept-title" id="lesson5.5"></h3>
-
+                <h3 class="concept-title" id="lesson5.5">Databases & SQL</h3>
                 <div class="concept-description">
+                    <h4> Databases </h4>
                     <p>
-                       
+                        Databases is how we store all the information we have been collecting from users. It can be defined as a program that stres an retrieves lareg amount of structured data. 
+                        Databses can refer to a program or a machine or a group of machines used to store your applications. Servers once prompted for data draws it from DB and sends it back to the user. This process of querying DB for data has to be done in a structured manner giving rise to a language called Stucrured Query Language (SQL) which is the most common DB used. <br>
+                        There are a lot of Data bases, a few are open source, in the market. But the format in which this Data is stored in remains the same. They involve Tables with a list of Horizontal rows  and Vertial Columns. Every HR will show a new entry of data as defined in VC. At times there might be expansion of Column into another table of rows. Manually querying data throught this can be Error prone, tedious and slow due to the custom codes we end up generating. Hence teh use of sturctured language.
+                        Click<a href= "http://www.tutorialspoint.com/database_tutorials.htm">here </a> to understand the types of DB.
+                        SQL was invented in 1970's. SQL existed long before the WEB. A Query example is:<br>
+                        <pre>
+                        SELECT * FROM links WHERE id = 5;
+                        </pre>
+                        More advanced SQL :
+                        <pre>
+                        SELECT * FROM links WHERE submitter_id= 156 And
+                                            votes = 5
+                        </pre>
+                        Join, Indexes are different ways of using queries. Indexes may be used to increase reads from DB but it reduces the inserts(writes) speed.
+                        <h4>Google App Engine Datastore</h4>
+                        Google app engine Datastore is built into the app engine and hence easier t set up than the traditional Databases. The terminologies are sightly different, where 'tables' are entities, and each entity has a parent/ancestor. Click<a href = "https://github.com/udacity/ipnd-webcasts/tree/master/Stage_4/2015-04-21-Generate_Notes_with_Google_App_Engine"> here </a> for notes on GAE and how to use it. <br>
+                        <a href = "https://cloud-playground.appspot.com/playground/">Googles Playground </a> has some sample projects that can be helpful.
+                    </p>
+                </div>
             </div>
 {%endblock%}
