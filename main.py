@@ -46,6 +46,17 @@ def valid_name(name):
 
         return "invalid"
 
+def valid_id(email):
+    if  len(email)<35:
+        p = r"[@.]"
+        if re.search(p, email):
+            return "valid"
+        else:
+            return "invalid"
+    else:
+        return "invalid"
+
+
 class Handler(webapp2.RequestHandler):
 
     def write(self, *a, **kw):
@@ -80,10 +91,11 @@ class MainPage(Handler):
 
     def post(self):
         user_name = self.request.get('name')
-        email = self.request.get('email')
-        topic = self.request.get('topic')
+        user_email = self.request.get('email')
+        topic = self.request.get('topic_selected')
 
         name = valid_name(user_name)
+        email = valid_id(user_email)
         
         if (name and email == "invalid"):
             self.write_form("Invalid name","Invalid email",user_name,user_id)
@@ -92,7 +104,7 @@ class MainPage(Handler):
         elif (email == "invalid"):
             self.write_form("","Invalid email",user_name,user_id)
         else: 
-            self.redirect("/thanks?name="+name+"&email="+email+"&topic="+topic)       
+            self.redirect("/thanks?name="+user_name+"&email="+user_email+"&topic="+topic)       
 
 class ThanksHandler(Handler):
     def get(self):
@@ -102,7 +114,8 @@ class ThanksHandler(Handler):
 
         template_values = {'comments': comments}
         self.render('comment.html', **(template_values))           
-    
+
+class CommentHandler(Handler):         
     def post(self):
         comments_holder = self.request.get('name')
         comment = Commentinfo(parent=_CommentKey(comments_holder))
@@ -114,8 +127,10 @@ class ThanksHandler(Handler):
         comment.content = self.request.get('content')
         comment.put()
 
+
         self.redirect('/thanks?'+ urllib.urlencode({'comments_holder': comments_holder}))
 
 #trial is what you have launched on Google app engine an it works so far
 app = webapp2.WSGIApplication([('/', MainPage),("/thanks", ThanksHandler),
-                            ], debug=True)
+                           ("/comment",CommentHandler
+                            ) ], debug=True)
